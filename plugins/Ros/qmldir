@@ -1,0 +1,11 @@
+module Ros
+# Adjust the path to PyQt5 plugin accordingly if you need to call,
+# e.g. qmlplugindump on ROS QML plugin.
+#
+# Examples:
+#   plugin pyqt5qmlplugin /usr/lib/x86_64-linux-gnu/qt5/plugins/PyQt5
+## or
+##   plugin pyqt5qmlplugin /opt/qt54/plugins/PyQt5
+plugin pyqt5qmlplugin
+
+typeinfo rosplugin.qmltypes

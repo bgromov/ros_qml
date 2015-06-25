@@ -1,0 +1,6 @@
+#!/usr/bin/env python
+
+import os
+import ros_qml
+
+ros_qml.ros_qml_main()

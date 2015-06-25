@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package>
+  <name>ros_qml</name>
+  <version>0.1.0</version>
+  <description>The ros_qml package</description>
+
+  <maintainer email="boris.a.gromov@gmail.com">Boris Gromov</maintainer>
+
+  <license>BSD</license>
+  <!-- <url type="website">http://wiki.ros.org/ros_qml</url> -->
+  <author email="boris.a.gromov@gmail.com">Boris Gromov</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>rospkg</run_depend>
+  <run_depend>roslib</run_depend>
+  <run_depend>rospy_message_converter</run_depend>
+
+  <export>
+    <!-- <rosdoc config="rosdoc.yaml"/> -->
+  </export>
+</package>

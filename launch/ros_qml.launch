@@ -1,0 +1,6 @@
+<launch>
+  <node name="ros_qml" type="ros_qml" pkg="ros_qml" required="true" output="screen">
+    <!-- Workaround for QT GTK+ style -->
+    <env name="LIBOVERLAY_SCROLLBAR" value="0"/>
+  </node>
+</launch>
