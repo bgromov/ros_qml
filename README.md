@@ -3,7 +3,44 @@ The ros_qml package provides Qt 5.4 QML plugin for integration with ROS.
 
 The plugin is written in Python and thus depends on PyQt 5.4.
 
-## Usage
+## Nodes
+
+ * `ros_qml` executes QML-file from location specified with `qml_url` parameter on ROS parameter server. The root component of executed QML-file has to be a QML window, e.g. `ApplicationWindow` (see sample code).
+
+Run sample code with:
+```
+$ rosparam set /qml_url `rospack find ros_qml`/examples/main.qml
+$ rosrun ros_qml ros_qml
+```
+or
+```
+$ rosparam set /qml_url `rospack find ros_qml`/examples/main.qml
+$ roslaunch ros_qml ros_qml.launch
+```
+
+The launch file additionally defines `LIBOVERLAY_SCROLLBAR` environment variable and set it to 0 to avoid QT GTK+ bug on Ubuntu. If you do not have any scrollbars in your QML graphical interface then the variable can be omitted.
+
+## Scripts
+
+ * `qml_env.sh` &mdash; used internally to expose user-defined QML plugin dirs via Qt environment variables. That is particularly useful when QML files are edited with Qt Creator.
+
+ * `qtcreator.sh` &mdash; bootstraps Qt Creator with all the necessary environment variables provided by `qml_env.sh`.
+
+    ```
+    $ rosrun ros_qml qtcreator.sh main.qml
+    ```
+
+To add your own QML plugins (either written in Python or C++) use `<ros_qml>` tag in export section of your `package.xml`, e.g.:
+
+```xml
+  <export>
+    <ros_qml plugins="${prefix}/my_qml_plugins_dir" />
+  </export>
+```
+
+Then `qml_env.sh` script will take care of plugin path to be exposed to Qt Creator.
+
+## QML Plugin API
 
 There are four components provided by the plugin:
 
@@ -13,8 +50,6 @@ There are four components provided by the plugin:
  * `Topic` &mdash; just a container for topic specific properties, i.e. `name` and `type`.
 
 See [examples/main.qml](examples/main.qml).
-
-## API
 
 ### Ros
 
