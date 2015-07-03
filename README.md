@@ -100,7 +100,7 @@ Subscriber {
   /* Not used at the moment */
   id: sub1
   
-  /* Correspondes to ROS subscriber queue_size parameter */
+  /* Corresponds to ROS subscriber queue_size parameter */
   queue_size: 10
   
   /* Holds topic name and type (see below) */
@@ -124,7 +124,7 @@ Publisher {
   /* Allows access to 'publish()' function */
   id: pub1
   
-  /* Correspondes to ROS publisher queue_size parameter */
+  /* Corresponds to ROS publisher queue_size parameter */
   queue_size: 10
   
   /* Holds topic name and type (see below) */
