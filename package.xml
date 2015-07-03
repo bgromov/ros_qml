@@ -18,5 +18,6 @@
 
   <export>
     <!-- <rosdoc config="rosdoc.yaml"/> -->
+    <ros_qml plugins="${prefix}/plugins" />
   </export>
 </package>
