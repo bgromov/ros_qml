@@ -13,6 +13,9 @@ import rospy
 import rospkg
 rospack = rospkg.RosPack()
 
+# TODO: Is there a way to determine self package name?
+THIS_PACKAGE = 'ros_qml'
+
 def sigint_handler(*args):
     sys.stderr.write('\r')
     QApplication.quit()
@@ -31,11 +34,19 @@ def ros_qml_main():
         plugins_dir = QLibraryInfo.location(QLibraryInfo.PluginsPath)
         engine.addPluginPath(plugins_dir + '/PyQt5')
 
-        # ## Add ROS QML extension to the path
+        # ## Add QML extension modules and plugins to the path, including ourselves
+        qml_paths = rospack.get_manifest(THIS_PACKAGE).get_export(THIS_PACKAGE, 'plugins')
+        deps = rospack.get_depends_on(THIS_PACKAGE)
+        for d in deps:
+            paths = rospack.get_manifest(d).get_export(THIS_PACKAGE, 'plugins')
+            qml_paths += paths
+
+        for p in qml_paths:
+            engine.addImportPath(p)
+
         # Somehow we need to set the path both with QQmlEngine and with environment,
-        # commenting any of two will lead to 'module not installed' error
-        engine.addImportPath(rospack.get_path('ros_qml') + '/plugins')
-        os.environ['QML2_IMPORT_PATH'] = rospack.get_path('ros_qml') + '/plugins'
+        # commenting any of the two will lead to 'module not installed' error
+        os.environ['QML2_IMPORT_PATH'] = ':'.join(qml_paths)
 
         comp = QQmlComponent(engine)
         
