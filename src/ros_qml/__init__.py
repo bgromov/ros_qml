@@ -22,11 +22,12 @@ def sigint_handler(*args):
 
 def ros_qml_main():
     try:
-        rospy.init_node('ros_qml')
+        rospy.init_node('ros_qml', sys.argv)
+        my_argv = rospy.myargv(sys.argv)
         
         signal.signal(signal.SIGINT, sigint_handler)
 
-        app = QApplication(sys.argv)
+        app = QApplication(my_argv)
 
         engine = QQmlEngine()
         engine.quit.connect(app.quit)
@@ -50,7 +51,10 @@ def ros_qml_main():
 
         comp = QQmlComponent(engine)
         
-        if rospy.has_param('qml_url'):
+        if len(my_argv) > 1 and my_argv[1]:
+            qml_url = my_argv[1]
+            comp.loadUrl(QUrl(qml_url))
+        elif rospy.has_param('qml_url'):
             qml_url = rospy.get_param('qml_url')
             comp.loadUrl(QUrl(qml_url))
         elif rospy.has_param('qml_description'):  # experimental
