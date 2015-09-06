@@ -138,6 +138,10 @@ class Ros(QQuickItem, QQmlParserStatus):
     def objects(self):
         return QQmlListProperty(QQuickItem, self, append = self.append_object)
 
+    @pyqtProperty(bool)
+    def isInitialized(self):
+        return rospy.core.is_initialized()
+
     def append_object(self, node, object):
         if isinstance(object, Subscriber):
             self._subscribers.append(object)

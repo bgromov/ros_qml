@@ -31,6 +31,7 @@ Module {
         exports: ["Ros/Ros 1.0"]
         exportMetaObjectRevisions: [0]
         Property { name: "objects"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "isInitialized"; type: "bool"; isReadonly: true }
         Method {
             name: "logwarn"
             Parameter { type: "string" }
