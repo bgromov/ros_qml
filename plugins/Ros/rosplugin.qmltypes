@@ -31,6 +31,27 @@ Module {
         exports: ["Ros/Ros 1.0"]
         exportMetaObjectRevisions: [0]
         Property { name: "objects"; type: "QObject"; isList: true; isReadonly: true }
+        Method {
+            name: "logwarn"
+            Parameter { type: "string" }
+        }
+        Method {
+            name: "logerr"
+            Parameter { type: "string" }
+        }
+        Method {
+            name: "loginfo"
+            Parameter { type: "string" }
+        }
+        Method { name: "now"; type: "QVariantMap" }
+        Method {
+            name: "logfatal"
+            Parameter { type: "string" }
+        }
+        Method {
+            name: "logdebug"
+            Parameter { type: "string" }
+        }
     }
     Component {
         name: "Subscriber"
