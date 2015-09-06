@@ -45,9 +45,12 @@ def ros_qml_main():
         for p in qml_paths:
             engine.addImportPath(p)
 
+        qml_sys_path = QLibraryInfo.location(QLibraryInfo.ImportsPath)
+        engine.addImportPath(qml_sys_path)
+
         # Somehow we need to set the path both with QQmlEngine and with environment,
         # commenting any of the two will lead to 'module not installed' error
-        os.environ['QML2_IMPORT_PATH'] = ':'.join(qml_paths)
+        os.environ['QML2_IMPORT_PATH'] = ':'.join(qml_paths) + ':' + qml_sys_path
 
         comp = QQmlComponent(engine)
         
