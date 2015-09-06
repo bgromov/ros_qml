@@ -156,6 +156,9 @@ class Ros(QQuickItem, QQmlParserStatus):
         for p in self._publishers:
             rospy.logdebug('Will publish to: ' + p.topic.name)
 
+        if not rospy.core.is_initialized():
+            rospy.init_node("ros_qml", disable_signals = True)
+
     @pyqtSlot(name = 'now', result = 'QVariantMap')
     def now(self):
         now = rospy.Time.now()
