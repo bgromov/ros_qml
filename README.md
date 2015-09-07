@@ -3,6 +3,14 @@ The ros_qml package provides Qt 5.4 QML plugin for integration with ROS.
 
 The plugin is written in Python and thus depends on PyQt 5.4.
 
+To install PyQt with Python 2.7 bindings configure and build it with the following parameters (actual paths may differ):
+
+```
+$ python configure.py --sip-incdir=/usr/include/python2.7/ --qmake=/opt/qt54/bin/qmake
+$ make
+$ sudo make install 
+```
+
 ## Nodes
 
  * `ros_qml` executes QML-file from location specified with `qml_url` parameter on ROS parameter server. The root component of executed QML-file has to be a QML window, e.g. `ApplicationWindow` (see sample code).
