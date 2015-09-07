@@ -36,6 +36,11 @@ def ros_qml_main():
 
         # ## Add QML extension modules and plugins to the path, including ourselves
         plugins_paths = rospack.get_manifest(THIS_PACKAGE).get_export(THIS_PACKAGE, 'plugins')
+        for idx, p in enumerate(plugins_paths):
+            # If a relative path provided, treat it as relative to Qt plugins dir
+            if not os.path.isabs(p):
+                plugins_paths[idx] = plugins_dir + '/' + p
+
         qml_paths = rospack.get_manifest(THIS_PACKAGE).get_export(THIS_PACKAGE, 'imports')
         deps = rospack.get_depends_on(THIS_PACKAGE)
         for d in deps:
