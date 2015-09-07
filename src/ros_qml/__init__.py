@@ -33,14 +33,25 @@ def ros_qml_main():
         engine.quit.connect(app.quit)
 
         plugins_dir = QLibraryInfo.location(QLibraryInfo.PluginsPath)
-        engine.addPluginPath(plugins_dir + '/PyQt5')
 
         # ## Add QML extension modules and plugins to the path, including ourselves
-        qml_paths = rospack.get_manifest(THIS_PACKAGE).get_export(THIS_PACKAGE, 'plugins')
+        plugins_paths = rospack.get_manifest(THIS_PACKAGE).get_export(THIS_PACKAGE, 'plugins')
+        qml_paths = rospack.get_manifest(THIS_PACKAGE).get_export(THIS_PACKAGE, 'imports')
         deps = rospack.get_depends_on(THIS_PACKAGE)
         for d in deps:
-            paths = rospack.get_manifest(d).get_export(THIS_PACKAGE, 'plugins')
-            qml_paths += paths
+            pp = rospack.get_manifest(d).get_export(THIS_PACKAGE, 'plugins')
+            for idx, p in enumerate(pp):
+                # If a relative path provided, treat it as relative to Qt plugins dir
+                if not os.path.isabs(p):
+                    pp[idx] = plugins_dir + '/' + p
+
+            plugins_paths += pp
+
+            qp = rospack.get_manifest(d).get_export(THIS_PACKAGE, 'imports')
+            qml_paths += qp
+
+        for p in plugins_paths:
+            engine.addPluginPath(p)
 
         for p in qml_paths:
             engine.addImportPath(p)

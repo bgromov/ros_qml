@@ -38,7 +38,25 @@ To add your own QML plugins (either written in Python or C++) use `<ros_qml>` ta
   </export>
 ```
 
-Then `qml_env.sh` script will take care of plugin path to be exposed to Qt Creator.
+If a relative path supplied to `plugins` attribute, it will be treated as relative to Qt plugins directory, e.g.:
+
+```xml
+  <export>
+    <ros_qml plugins="PyQt5" /> <!-- This may resolve to /usr/lib/x86_64-linux-gnu/qt5/plugins/PyQt5 --/>
+  </export>
+```
+
+To add your own extension modules (*.qml files) use `imports` attribute.
+
+```xml
+  <export>
+    <ros_qml imports="${prefix}/my_qml_extensions_dir" plugins="PyQt5" />
+  </export>
+```
+
+Note, however, that a path provided with `imports` attribute is always treated as absolute.
+
+Then `qml_env.sh` script will take care of imports path to be exposed to Qt Creator.
 
 ## QML Plugin API
 

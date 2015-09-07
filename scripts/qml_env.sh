@@ -1,6 +1,6 @@
 #!/bin/bash
 
-QML_DIRS=`rospack plugins --attrib=plugins ros_qml | cut -d' ' -f2- | tr '\r\n' ':'`
+QML_DIRS=`rospack plugins --attrib=imports ros_qml | cut -d' ' -f2- | tr '\r\n' ':'`
 
 ## Add paths to the end of existing vars
 QML_IMPORT_PATH="$QML_IMPORT_PATH:$QML_DIRS"
